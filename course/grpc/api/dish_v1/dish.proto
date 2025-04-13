@@ -1,0 +1,114 @@
+syntax = "proto3";
+
+package dish_v1;
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/wrappers.proto";
+
+option go_package = "github.com/RikiTikiTavee17/productionSite/course/grpc/pkg/dish_v1";
+
+service DishV1{
+  rpc Create(CreateRequest) returns (CreateResponse);
+  rpc Get(GetRequest) returns (GetResponse);
+  rpc List(ListRequest) returns (ListResponse);
+  rpc Update(UpdateRequest) returns (google.protobuf.Empty);
+  rpc Delete(DeleteRequest) returns (google.protobuf.Empty);
+  rpc CreatePerson(CreatePersonReqest) returns (CreatePersonResponse);
+  rpc LogInPerson(LogInPersonRequest) returns (LogInPersonResponce);
+  rpc ChangePersonPosition(ChangePersonPositionRequest) returns (ChangePersonPositionResponse);
+}
+
+message DishInfo{
+  string name = 1;
+  int32 price = 2;
+  string description = 3;
+  string composition = 4;
+  int32 author = 5;
+  string photo_url = 6;
+}
+
+message Person{
+  int32 id = 1;
+  string login = 2;
+  string password = 3;
+  string position = 4;
+}
+
+message Dish{
+  int32 id = 1;
+  DishInfo info = 2;
+  google.protobuf.Timestamp created_at = 3;
+  google.protobuf.Timestamp updated_at = 4;
+}
+
+message UpdateDishInfo{
+  google.protobuf.StringValue name = 1;
+  google.protobuf.Int64Value price = 2;
+  google.protobuf.StringValue description = 3;
+  google.protobuf.StringValue composition = 4;
+  google.protobuf.Int64Value author = 5;
+  google.protobuf.StringValue photo_url = 6;
+}
+
+message CreateRequest{
+  DishInfo info = 1;
+}
+
+message CreateResponse{
+  int32 id = 1;
+}
+
+message GetRequest{
+  int32 id = 1;
+}
+
+message GetResponse{
+  Dish note = 1;
+}
+
+message ListRequest{
+
+}
+
+message ListResponse{
+  repeated Dish dishes = 1;
+}
+
+message UpdateRequest{
+  int32 id = 1;
+  UpdateDishInfo info = 2;
+}
+
+message DeleteRequest{
+  int32 id = 1;
+}
+
+message CreatePersonReqest{
+  string login = 1;
+  string password = 2;
+  string position = 3;
+}
+
+message CreatePersonResponse{
+  int32 id = 1;
+}
+
+message LogInPersonRequest{
+  string login = 1;
+  string password = 2;
+}
+
+message LogInPersonResponce{
+  int32 id = 1;
+  string position = 2;
+}
+
+message ChangePersonPositionRequest{
+  int32 id = 1;
+  string position = 2;
+}
+
+message ChangePersonPositionResponse{
+  string position = 1;
+}
